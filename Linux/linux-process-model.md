@@ -23,8 +23,8 @@ parameters to the logical actions they perform takes a significant
 amount of expertise.  Additionally, newer system calls such as those
 of io_uring make it possible to read and write files and sockets with
 no additional system calls by using memory mapped between kernel and
-user space. By contrast, the process model is stable (hadn't changed
-much since the 70's) yet still comprehensively covers the actions
+user space. By contrast, the process model is stable (hasn't changed
+much since the 1970's) yet still comprehensively covers the actions
 taken on a system when one includes file access, networking and other
 logical operations.
 
