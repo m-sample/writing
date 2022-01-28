@@ -5,7 +5,7 @@ Author: Mike Sample
 Linux follows the Unix process model from the 1970s that was augmented
 with the concept sessions in the 1980s (as near as I can tell from
 when the `setsid()` system call was introduced by early [POSIX
-documents](https://en.wikipedia.org/wiki/POSIX).
+documents](https://en.wikipedia.org/wiki/POSIX)).
 
 ## Process Model Capture vs System Call Logs
 
