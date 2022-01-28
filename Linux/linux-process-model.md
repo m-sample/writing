@@ -118,7 +118,7 @@ close-on-exec) may be closed prior to the exec of the new program,
 while others may remain available to the new program.  Recall that a
 single `fork`/`clone` call provides a return code in two processes,
 the parent and the child.  The `execve` system call is strange as well
-in that a successful a `execve` has no return code because it results
+in that a successful `execve` has no return code because it results
 in a new program execution so there's nowhere to return to.
 
 ## Creating New Sessions
@@ -143,7 +143,7 @@ leader. There is no special status for the process group leader; it
 may exit with no effect on other members of the process group and they
 retain the same PGID, even though the process with that PID no longer
 exists.  Note that even with pid-wrap (re-use of a recently used pid
-on busy systems), the Linux kernel ensures the PGID pid of an exited
+on busy systems), the Linux kernel ensures the pid of an exited
 process group leader is not reused until all members of that process
 group have exited (i.e. there is no way their PGID could accidentally
 refer to a new process).
