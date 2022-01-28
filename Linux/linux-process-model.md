@@ -2,8 +2,8 @@
 
 Author: Mike Sample
 
-Linux follows the Unix process model from the 1970s that was augmented
-with the concept sessions in the 1980s (as near as I can tell from
+Linux follows the Unix process model from the 1970's that was augmented
+with the concept sessions in the 1980's (as near as I can tell from
 when the `setsid()` system call was introduced by early [POSIX
 documents](https://en.wikipedia.org/wiki/POSIX)).
 
@@ -58,7 +58,7 @@ process(es). Reparenting usually picks init as the new parent and init
 has special code to clean up after these adopted children when they
 exit. Without this adoption and clean up code, orphaned child
 processes would become "zombie" processes - no kidding. They hang
-around until their parent reaps so the parent can examine their exit
+around until their parent reaps them so the parent can examine their exit
 code, an indicator of whether the child program completed its tasks
 successfully. The advent of "containers", pid namespaces in
 particular, necessitated the ability to designate processes other than
@@ -73,18 +73,18 @@ or `clone()` system
 call](https://en.wikipedia.org/wiki/Fork_(system_call)).  After the
 fork/clone, execution immediately continues in *both* the parent *and*
 the child (ignoring `vfork()`), but along different code paths by
-virtue of the return code value from `fork`/`clone`. You read that
+virtue of the return code value from `fork`. You read that
 correctly - one `fork`/`clone` system call provides a return code in
 two different processes! There are some cloning nuances with
 multi-threaded parents and copy-on-write memory for efficiency that do
 need to be elaborated on here.  The child process inherits the memory
-state of the parent and most open files, network sockets and the
+state of the parent and open files, network sockets and the
 controlling terminal, if any.
 
 Typically the parent process will capture the PID of the child to
 monitor its lifecycle (see reaping above).  The child process's
 behavior depends on the program that cloned itself (it provides
-execution path to follow based on the return code from fork()).
+execution path to follow based on the return code from `fork()`).
 
 A web server such as nginx might clone itself, creating a child
 process to handle http connections.  In cases like this, the child
