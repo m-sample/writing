@@ -65,7 +65,7 @@ particular, necessitated the ability to designate processes other than
 init as "sub reapers" (processes willing to adopt orphaned
 processes). Typically sub-reapers are the first process in a
 container; this is done because the processes in the container cannot
-"see" processes in the ancestor pid namespaces (i.e. their PGID value
+"see" processes in the ancestor pid namespaces (i.e. their PPID value
 would not make senses if the parent was in an ancestor pid namespace).
 
 To create a child process, the parent clones itself via the [`fork()`
