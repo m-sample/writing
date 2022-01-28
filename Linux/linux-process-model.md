@@ -98,14 +98,15 @@ etc. with a controlling terminal), possibly from an ssh session, clone
 themselves whenever a command is entered. The child process, still
 running a code path from the parent/shell, does a bunch of work
 setting up file descriptors for IO redirection, setting the process
-group, and more before the code path in the child calls the execve()
+group, and more before the code path in the child calls the
+[`execve()`](https://man7.org/linux/man-pages/man2/execve.2.html)
 system call or similar to run a different program inside that process.
 If you type `ls` into your shell, it forks your shell, the setup
 described above is done by the shell/child and then the `ls` program
 (usually from the `/usr/bin/ls` file) is executed to replace the
 contents of that process with the machine code for `ls`.
 
-It is important to note that a process can call execve() more than
+It is important to note that a process can call `execve()` more than
 once, and therefore workload capture data models must handle this as
 well.  This means that a process can become many different programs
 before it exits – not just its parent process program optionally
