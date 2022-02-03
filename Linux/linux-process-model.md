@@ -15,17 +15,18 @@ the [system calls](https://en.wikipedia.org/wiki/System_call) used to
 enact those changes.  Linux has approximately 400 system calls and
 does not refactor them once they are released. This approach retains a
 stable application binary interface (ABI) which means programs
-compiled to run on Linux years ago, should continue to run on Linux
+compiled to run on Linux years ago should continue to run on Linux
 today without rebuilding them from source code. New system calls are
-added instead of refactoring to improve capabilities or security.  The
-upshot is that mapping a time ordered list of system calls and their
-parameters to the logical actions they perform takes a significant
-amount of expertise.  Additionally, newer system calls such as those
-of io_uring make it possible to read and write files and sockets with
-no additional system calls by using memory mapped between kernel and
-user space. By contrast, the process model is stable (hasn't changed
-much since the 1970's) yet still comprehensively covers the actions
-taken on a system when one includes file access, networking and other
+added to improve capabilities or security instead of refactoring
+existing system calls (avoids breaking the ABI).  The upshot is that
+mapping a time ordered list of system calls and their parameters to
+the logical actions they perform takes a significant amount of
+expertise.  Additionally, newer system calls such as those of io_uring
+make it possible to read and write files and sockets with no
+additional system calls by using memory mapped between kernel and user
+space. By contrast, the process model is stable (hasn't changed much
+since the 1970's) yet still comprehensively covers the actions taken
+on a system when one includes file access, networking and other
 logical operations.
 
 ## Process Formation: init is the first process after boot
@@ -66,7 +67,7 @@ init as "sub reapers" (processes willing to adopt orphaned
 processes). Typically sub-reapers are the first process in a
 container; this is done because the processes in the container cannot
 "see" processes in the ancestor pid namespaces (i.e. their PPID value
-would not make senses if the parent was in an ancestor pid namespace).
+would not make sense if the parent was in an ancestor pid namespace).
 
 To create a child process, the parent clones itself via the [`fork()`
 or `clone()` system
