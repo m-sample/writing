@@ -105,7 +105,10 @@ system call or similar to run a different program inside that process.
 If you type `ls` into your shell, it forks your shell, the setup
 described above is done by the shell/child and then the `ls` program
 (usually from the `/usr/bin/ls` file) is executed to replace the
-contents of that process with the machine code for `ls`.
+contents of that process with the machine code for `ls`. This
+[article](https://www.gnu.org/software/libc/manual/html_node/Implementing-a-Shell.html)
+about implementing shell job control provides great insight into the
+innerworkings of shells.
 
 It is important to note that a process can call `execve()` more than
 once, and therefore workload capture data models must handle this as
@@ -214,4 +217,5 @@ below have details of the Linux process model described above:
 * [man 2 exit](https://man7.org/linux/man-pages/man2/_exit.2.html)
 * [man 7 credentials](https://man7.org/linux/man-pages/man7/credentials.7.html)
 * [man 7 namespaces](https://man7.org/linux/man-pages/man7/namespaces.7.html)
+* [process groups - implementing shell job control](https://www.gnu.org/software/libc/manual/html_node/Implementing-a-Shell.html)
 
