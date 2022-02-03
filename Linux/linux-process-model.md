@@ -63,7 +63,7 @@ around until their parent reaps them so the parent can examine their exit
 code, an indicator of whether the child program completed its tasks
 successfully. The advent of "containers", pid namespaces in
 particular, necessitated the ability to designate processes other than
-init as "sub reapers" (processes willing to adopt orphaned
+init as "sub-reapers" (processes willing to adopt orphaned
 processes). Typically sub-reapers are the first process in a
 container; this is done because the processes in the container cannot
 "see" processes in the ancestor pid namespaces (i.e. their PPID value
@@ -114,16 +114,17 @@ It is important to note that a process can call `execve()` more than
 once, and therefore workload capture data models must handle this as
 well.  This means that a process can become many different programs
 before it exits – not just its parent process program optionally
-followed by one program.  See the shell `exec` builtin command for a
-way to do this in a shell (i.e. replace the shell program with another
-in the same process).  Another aspect of executing a program in a
-process is that some open file descriptors (those marked as
+followed by one program.  See the shell [`exec` builtin
+command](https://www.man7.org/linux/man-pages/man1/bash.1.html#SHELL_BUILTIN_COMMANDS)
+for a way to do this in a shell (i.e. replace the shell program with
+another in the same process).  Another aspect of executing a program
+in a process is that some open file descriptors (those marked as
 close-on-exec) may be closed prior to the exec of the new program,
 while others may remain available to the new program.  Recall that a
 single `fork`/`clone` call provides a return code in two processes,
 the parent and the child.  The `execve` system call is strange as well
-in that a successful `execve` has no return code because it results
-in a new program execution so there's nowhere to return to.
+in that a successful `execve` has no return code because it results in
+a new program execution so there's nowhere to return to.
 
 ## Creating New Sessions
 
@@ -218,4 +219,4 @@ below have details of the Linux process model described above:
 * [man 7 credentials](https://man7.org/linux/man-pages/man7/credentials.7.html)
 * [man 7 namespaces](https://man7.org/linux/man-pages/man7/namespaces.7.html)
 * [process groups - implementing shell job control](https://www.gnu.org/software/libc/manual/html_node/Implementing-a-Shell.html)
-
+* [shell builtin commands](https://www.man7.org/linux/man-pages/man1/bash.1.html#SHELL_BUILTIN_COMMANDS)
