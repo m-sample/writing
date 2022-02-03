@@ -108,7 +108,7 @@ described above is done by the shell/child and then the `ls` program
 contents of that process with the machine code for `ls`. This
 [article](https://www.gnu.org/software/libc/manual/html_node/Implementing-a-Shell.html)
 about implementing shell job control provides great insight into the
-innerworkings of shells.
+innerworkings of shells and process groups.
 
 It is important to note that a process can call `execve()` more than
 once, and therefore workload capture data models must handle this as
