@@ -73,14 +73,16 @@ To create a child process, the parent clones itself via the [`fork()`
 or `clone()` system
 call](https://en.wikipedia.org/wiki/Fork_(system_call)).  After the
 fork/clone, execution immediately continues in *both* the parent *and*
-the child (ignoring `vfork()`), but along different code paths by
-virtue of the return code value from `fork`. You read that
-correctly - one `fork`/`clone` system call provides a return code in
-two different processes! There are some cloning nuances with
-multi-threaded parents and copy-on-write memory for efficiency that do
-need to be elaborated on here.  The child process inherits the memory
-state of the parent and open files, network sockets and the
-controlling terminal, if any.
+the child (ignoring `vfork()` and `'clone()`'s `CLONE_VFORK` option),
+but along different code paths by virtue of the return code value from
+`fork()`/`clone()`. You read that correctly – one `fork()`/`clone()`
+system call provides a return code in two different processes! The
+parent receives the PID of the child as its return code, and the child
+receives 0 so the shared code of the parent and child can branch based on
+that value. There are some cloning nuances with multi-threaded parents
+and copy-on-write memory for efficiency that do need to be elaborated
+on here.  The child process inherits the memory state of the parent
+and open files, network sockets and the controlling terminal, if any.
 
 Typically the parent process will capture the PID of the child to
 monitor its lifecycle (see reaping above).  The child process's
@@ -121,10 +123,11 @@ another in the same process).  Another aspect of executing a program
 in a process is that some open file descriptors (those marked as
 close-on-exec) may be closed prior to the exec of the new program,
 while others may remain available to the new program.  Recall that a
-single `fork`/`clone` call provides a return code in two processes,
-the parent and the child.  The `execve` system call is strange as well
-in that a successful `execve` has no return code because it results in
-a new program execution so there's nowhere to return to.
+single `fork()`/`clone()` call provides a return code in two
+processes, the parent and the child.  The `execve()` system call is
+strange as well in that a successful `execve()` has no return code for
+success because it results in a new program execution so there's
+nowhere to return to execept when `execve()` fails.
 
 ## Creating New Sessions
 
